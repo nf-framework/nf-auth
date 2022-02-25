@@ -1,0 +1,36 @@
+{
+    "name": "@nfjs/auth",
+    "version": "1.0.0",
+    "description": "Authorization module",
+    "license": "MIT",
+    "type": "module",
+    "main": "index.js",
+    "repository": {
+        "url": "https://github.com/nf-framework/nf-auth.git"
+    },
+    "author": "The NF Project Authors",
+    "contributors": [
+        {
+            "name": "Dmitry Boikov",
+            "email": "boikovdv@gmail.com"
+        },
+        {
+            "name": "Andrey Maksimov",
+            "email": "andrmaxmail@gmail.com"
+        },
+        {
+            "name": "Azat Yamalov",
+            "email": "yamalov.azat@live.com"
+        }
+    ],
+    "dependencies": {
+        "session-file-store": "^1.2.0",
+        "redis": "^3.1.2",
+        "connect-redis": "^6.0.0",
+        "express-session": "^1.15.6"
+    },
+    "exports": {
+        ".": "./index.js",
+        "./nf-module.js": "./nf-module.js"
+    }
+}
