@@ -7,6 +7,7 @@ import session_file_store from "session-file-store";
 const FileStore = session_file_store(express_session);
 import connect_redis from "connect-redis";
 const RedisStore = connect_redis(express_session);
+import { createClient } from "redis";
 
 async function init() {
 
@@ -58,7 +59,7 @@ function createRedisSessionStore(config) {
         return 1000;
     };
 
-    const redisClient = redis.createClient({
+    const redisClient = createClient({
         ...config.redis,
         retry_strategy: retryStrategy,
     });
