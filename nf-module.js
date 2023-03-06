@@ -5,9 +5,8 @@ import session from "./middlewares/session.js";
 import express_session from 'express-session';
 import session_file_store from "session-file-store";
 const FileStore = session_file_store(express_session);
-import connect_redis from "connect-redis";
-const RedisStore = connect_redis(express_session);
-import { createClient } from "redis";
+import RedisStore from "connect-redis"
+import { createClient, createCluster } from "redis";
 
 async function init() {
 
@@ -59,12 +58,13 @@ function createRedisSessionStore(config) {
         return 1000;
     };
 
-    const redisClient = createClient({
+    const redisClient = config.redis.mode === 'cluster' ? createCluster({...config.redis, retry_strategy: retryStrategy}) : createClient({
         ...config.redis,
         retry_strategy: retryStrategy,
     });
 
     redisClient.on('error', console.error); // TODO: надо логировать
+    redisClient.connect().catch(console.error)
 
     const onSigintSigtermMessage = signal => {
         return msg => {
